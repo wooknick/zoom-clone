@@ -15,7 +15,11 @@ const httpServer = http.createServer(app);
 const io = new Server(httpServer);
 
 io.on("connection", (socket) => {
-  console.log(socket);
+  socket.on("enter_room", (roomName, done) => {
+    console.log(roomName);
+    socket.join(roomName);
+    done();
+  });
 });
 
 httpServer.listen(3000, () => {
